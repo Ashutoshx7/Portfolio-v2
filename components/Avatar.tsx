@@ -1,6 +1,6 @@
 "use client";
 import { useLanyard } from "../hooks/useLanyard";
-import React from "react";
+
 
 const DiscordStatus = () => {
   const DISCORD_ID = "1187126125722353768";
