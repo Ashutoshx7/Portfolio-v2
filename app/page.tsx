@@ -5,6 +5,15 @@ import Graph from "@/components/Graph";
 import Tech from "@/components/Tech";
 
 export default function Home() {
+  const techStack = [
+    { name: "Node.js", path: "/icons/node.svg" },
+    { name: "Typescript", path: "/icons/ts.svg" },
+    { name: "Next.js", path: "/icons/nextdark.svg" },
+    { name: "Digital Ocean", path: "/icons/ocean.svg" },
+    { name: "Docker", path: "/icons/docker.svg" },
+    { name: "Redis", path: "/icons/redis.svg" },
+  ];
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen py-2 bg-neutral-100">
       <Graph />
@@ -30,11 +39,38 @@ export default function Home() {
       </div>
 
       <div className="grid grid-cols-2 gap-10 ">
-        {" "}
-        <Card imageSrc="/image.png" techStack={} />
-        <Card imageSrc="/image.png" />
-        <Card imageSrc="/image.png" />
-        <Card imageSrc="/image.png" />
+        <Card
+          title="Project 1"
+          description="A brief description of Project 1."
+          status="Ready"
+          githubLink="#"
+          imageSrc="/image.png"
+          techStack={techStack}
+        />
+        <Card
+          title="Project 2"
+          description="A brief description of Project 2."
+          status="In Production"
+          githubLink="#"
+          imageSrc="/image.png"
+          techStack={techStack}
+        />
+        <Card
+          title="Project 3"
+          description="A brief description of Project 3."
+          status="Ready"
+          githubLink="#"
+          imageSrc="/image.png"
+          techStack={techStack}
+        />
+        <Card
+          title="Project 4"
+          description="A brief description of Project 4."
+          status="In Production"
+          githubLink="#"
+          imageSrc="/image.png"
+          techStack={techStack}
+        />
       </div>
     </div>
   );

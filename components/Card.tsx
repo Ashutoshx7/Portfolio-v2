@@ -3,18 +3,17 @@ import Icons from "./Icons";
 import { Icon } from "./ui/evervault-card";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 
-interface CardProps{
+interface CardProps {
   status: "Ready" | "In Production";
   githubLink: string;
   siteLink?: string;
   description: string;
-  title:string;
+  title: string;
   imageSrc: string;
   videoSrc?: string;
   techStack: { name: string; path: string }[];
-
 }
-export function Card(props:CardProps) {
+export function Card(props: CardProps) {
   return (
     <div className="border  border-black/20 dark:border-white/20 flex flex-col items-start max-w-md mx-auto p-4 relative h-120">
       <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
@@ -53,26 +52,32 @@ export function Card(props:CardProps) {
         </div>
       </div>
       <p className="text-sm text-gray-600 dark:text-gray-300 w-[400px] font-mono">
-       {props.description}
+        {props.description}
       </p>
-      <div className="flex gap-2">
-        {props.techStack.map((tech) => (
-          <Icons key={tech.name} name={tech.name} path={tech.path} />
-        ))}
-      </div>
-      <div className="flex gap-3">
-        {props.githubLink && <Icons
-          name="Code"
-          path="/icons/github.svg"
-          link={props.githubLink}
-          className="border-none"
-        />}
-       {props.siteLink && <Icons
-          name="Visit Site"
-          path="/icons/web.svg"
-          link={props.siteLink}
-          className="border-none"
-        />}
+      <div className="absolute bottom-3">
+        <div className="flex gap-2">
+          {props.techStack.map((tech) => (
+            <Icons key={tech.name} name={tech.name} path={tech.path} />
+          ))}
+        </div>
+        <div className="flex gap-3">
+          {props.githubLink && (
+            <Icons
+              name="Code"
+              path="/icons/github.svg"
+              link={props.githubLink}
+              className="border-none"
+            />
+          )}
+          {props.siteLink && (
+            <Icons
+              name="Visit Site"
+              path="/icons/web.svg"
+              link={props.siteLink}
+              className="border-none"
+            />
+          )}
+        </div>
       </div>
     </div>
   );
