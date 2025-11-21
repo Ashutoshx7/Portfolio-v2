@@ -1,6 +1,6 @@
 import Avatar from "@/components/Avatar";
 import { Card } from "@/components/Card";
-
+import Image from "next/image";
 import Graph from "@/components/Graph";
 import Tech from "@/components/Tech";
 import ThemeToggle from "@/components/theme-toggle";
@@ -9,7 +9,10 @@ export default function Home() {
   const techStack = [
     { name: "Node.js", path: "/icons/node.svg" },
     { name: "Typescript", path: "/icons/ts.svg" },
-    { name: "Next.js", path: "/icons/nextdark.svg" },
+    {
+      name: "Next.js",
+      path: "/icons/nextjslight.svg",
+    },
     { name: "Digital Ocean", path: "/icons/ocean.svg" },
     { name: "Docker", path: "/icons/docker.svg" },
     { name: "Redis", path: "/icons/redis.svg" },
@@ -23,7 +26,7 @@ export default function Home() {
         <Avatar />
 
         <div>
-          <p className="text-2xl font-serif font-black flex items-center ">
+          <p className="text-4xl leading-tight font-serif font-black flex items-center ">
             Hi , <span className="">I'm Piyush Rathore</span> , a Full Stack
             Developer!
           </p>
@@ -74,6 +77,9 @@ export default function Home() {
           techStack={techStack}
         />
       </div>
+
+      <Image src="/icons/nextdark.svg" alt="Sample Image" width={200} height={200} className="my-100 " />
     </div>
+
   );
 }

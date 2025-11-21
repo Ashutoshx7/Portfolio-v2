@@ -40,18 +40,22 @@ const DiscordStatus = () => {
   );
 };
 
-const Avatar = () => {
+interface avatarProps{
+  classname?:string ,
+
+}
+const Avatar = (props:avatarProps) => {
   const bgColorDark = "bg-orange-300";
   const bgColorLight = "bg-slate-300";
   return (
     <div className="relative">
       <div
-        className={`flex justify-center items-center ${bgColorDark} dark:${bgColorLight} rounded-full  h-22 w-22 relative overflow-hidden `}
+        className={`flex justify-center items-center ${bgColorDark} dark:${bgColorLight} rounded-full  h-22 w-22 relative overflow-hidden ${props.classname}`}
       >
         <img
           src="/assets/logo.png"
           alt="Avatar"
-          className="-mb-5 absolute h-22 w-22 scale-110 "
+          className="-mb-5 absolute h-22 w-22 scale-110 object-cover   "
         />
       </div>
       <DiscordStatus />

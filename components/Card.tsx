@@ -11,7 +11,7 @@ interface CardProps {
   title: string;
   imageSrc: string;
   videoSrc?: string;
-  techStack: { name: string; path: string }[];
+  techStack: { name: string; path: string; darkPath?: string }[];
 }
 export function Card(props: CardProps) {
   return (
@@ -55,9 +55,9 @@ export function Card(props: CardProps) {
         {props.description}
       </p>
       <div className="absolute bottom-3">
-        <div className="flex gap-2">
+        <div className="flex gap-2 ">
           {props.techStack.map((tech) => (
-            <Icons key={tech.name} name={tech.name} path={tech.path} />
+            <Icons key={tech.name} name={tech.name} path={tech.path}  />
           ))}
         </div>
         <div className="flex gap-3">
