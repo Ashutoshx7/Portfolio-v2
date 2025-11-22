@@ -38,24 +38,24 @@ const Navbar = () => {
     <Container>
       <motion.nav
         animate={{
-          boxShadow: scrolled ? "var(--shadow-input)" : "none",
+        //   boxShadow: scrolled ? "var(--shadow-input)" : "none",
         //   width: isDesktop ? (scrolled ? "45%" : "100%") : "100%",
-          y: scrolled ? 10 : 0,
-          borderRadius: scrolled ? "1rem" : "0rem",
+         
+          borderRadius: "rem"
         }}
         transition={{
           duration: 0.3,
           ease: "easeOut",
         }}
         className="fixed inset-x-0 top-0 z-50 flex w-full max-w-240 mx-auto items-center justify-between 
-        px-4 py-3 bg-neutral-50/80 dark:bg-neutral-950/70 backdrop-blur-lg font-black border-b border-neutral-200/40 dark:border-neutral-800/30 text-neutral-900 dark:text-neutral-50 transition-all duration-300"
+        px-4 py-3 bg-neutral-50/50 backdrop-blur-sm dark:bg-neutral-950/70  font-black  text-neutral-900 dark:text-neutral-50 transition-all duration-300 backdrop-filter border  border-dashed border-neutral-200 dark:border-neutral-700/50 "
       >
         <Link
           href="/"
-          className=" transition-opacity  duration-300 "
+          className=" transition-opacity  duration-300  border border-dashed dark:border-white/40 border-black/50  p-1 flex items-center justify-center dark:bg-neutral-800/60  "
         >
           <Image
-            className="w-9 h-9 rounded-full shadow-sm scale-110  "
+            className="w-9 h-9 scale-110 hover:scale-130  duration-200"
             src="/assets/logo.png"
             width={100}
             height={100}
@@ -67,7 +67,7 @@ const Navbar = () => {
         <div className="ml-auto flex flex-wrap items-center justify-end gap-3 sm:gap-6">
           {navItems.map((item, idx) => (
             <Link
-              className="text-sm relative px-3 py-1.5 text-neutral-600 dark:text-neutral-300 font-medium transition-colors duration-300 hover:text-neutral-900 dark:hover:text-neutral-50"
+              className="text-sm relative px-3 py-1.5 text-neutral-600 dark:text-neutral-300 font-medium transition-colors duration-300 hover:text-neutral-900 dark:hover:text-neutral-50 border-2 border-dashed border-neutral-400/50 dark:border-neutral-600/80"
               href={item.href}
               key={idx}
               onMouseEnter={() => setHovered(idx)}
@@ -76,10 +76,10 @@ const Navbar = () => {
               {hovered === idx && (
                 <motion.span
                   layoutId="hovered-span"
-                  className="h-full w-full absolute inset-0 rounded-md bg-neutral-200/60 dark:bg-neutral-800/50"
+                  className="h-full w-full absolute inset-0 rounded-md "
                 />
               )}
-              <span className="relative z-10">{item.title}</span>
+              <span className="relative z-10 ">{item.title}</span>
             </Link>
           ))}
 
@@ -88,6 +88,7 @@ const Navbar = () => {
               animate={{ scale: 1 }}
               whileHover={{ scale: 1.08 }}
               transition={{ duration: 0.2, type: "spring", stiffness: 300 }}
+              className="mt-2 pl-1"
             >
               <ThemeToggle />
             </motion.div>
