@@ -1,0 +1,101 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Container from "@/components/containers";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import ThemeToggle from "./theme-toggle";
+
+
+const Navbar = () => {
+  const navItems = [
+    { title: "Projects", href: "/projects" },
+    { title: "Blog", href: "/blog" },
+  ];
+
+  const [hovered, setHovered] = useState<number | null>(null);
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 20);
+  });
+
+  useEffect(() => {
+    const updateViewport = () => {
+      if (typeof window === "undefined") return;
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
+
+  return (
+    <Container>
+      <motion.nav
+        animate={{
+          boxShadow: scrolled ? "var(--shadow-input)" : "none",
+        //   width: isDesktop ? (scrolled ? "45%" : "100%") : "100%",
+          y: scrolled ? 10 : 0,
+          borderRadius: scrolled ? "1rem" : "0rem",
+        }}
+        transition={{
+          duration: 0.3,
+          ease: "easeOut",
+        }}
+        className="fixed inset-x-0 top-0 z-50 flex w-full max-w-240 mx-auto items-center justify-between 
+        px-4 py-3 bg-neutral-50/80 dark:bg-neutral-950/70 backdrop-blur-lg font-black border-b border-neutral-200/40 dark:border-neutral-800/30 text-neutral-900 dark:text-neutral-50 transition-all duration-300"
+      >
+        <Link
+          href="/"
+          className=" transition-opacity  duration-300 "
+        >
+          <Image
+            className="w-9 h-9 rounded-full shadow-sm scale-110  "
+            src="/assets/logo.png"
+            width={100}
+            height={100}
+            alt="Avatar"
+          />
+        </Link>
+
+        {/* Navigation links on the right */}
+        <div className="ml-auto flex flex-wrap items-center justify-end gap-3 sm:gap-6">
+          {navItems.map((item, idx) => (
+            <Link
+              className="text-sm relative px-3 py-1.5 text-neutral-600 dark:text-neutral-300 font-medium transition-colors duration-300 hover:text-neutral-900 dark:hover:text-neutral-50"
+              href={item.href}
+              key={idx}
+              onMouseEnter={() => setHovered(idx)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              {hovered === idx && (
+                <motion.span
+                  layoutId="hovered-span"
+                  className="h-full w-full absolute inset-0 rounded-md bg-neutral-200/60 dark:bg-neutral-800/50"
+                />
+              )}
+              <span className="relative z-10">{item.title}</span>
+            </Link>
+          ))}
+
+          <div className="pl-2 border-l border-neutral-300/40 dark:border-neutral-700/50">
+            <motion.div
+              animate={{ scale: 1 }}
+              whileHover={{ scale: 1.08 }}
+              transition={{ duration: 0.2, type: "spring", stiffness: 300 }}
+            >
+              <ThemeToggle />
+            </motion.div>
+          </div>
+        </div>
+      </motion.nav>
+    </Container>
+  );
+};
+
+export default Navbar;

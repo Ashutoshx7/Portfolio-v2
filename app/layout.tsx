@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,22 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} font-sans  `}
       >
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var savedTheme = localStorage.getItem("theme");
-                  if (savedTheme === "dark") {
-                    document.documentElement.classList.add("dark");
-                  } else {
-                    document.documentElement.classList.remove("dark");
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
+        <Navbar />
         {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
