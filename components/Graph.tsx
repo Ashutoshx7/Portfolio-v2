@@ -108,7 +108,7 @@ const GithubGraph = () => {
 
   return (
     <div>
-      <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+      <div className="absolute right-6 w-212 h-px  opacity-90 dark:opacity-15"></div>
 
       <h1 className="text-neutral-900 dark:text-neutral-50/70  font-bold  text-4xl tracking-tight flex flex-col gap-1">
         <span className="font-mono text-sm font-normal">Featured</span>{" "}
@@ -171,7 +171,7 @@ const GithubGraph = () => {
       {/* PRs Section */}
       {showPRSection && (
         <div className="mt-4">
-          <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mr-1">
             <h2 className="text-neutral-900 dark:text-neutral-50  font-semibold text-2xl tracking-tight">
               <span className="font-serif">Pull Requests</span>
             </h2>
@@ -232,7 +232,7 @@ const GithubGraph = () => {
                   .map((pr, index) => (
                     <div
                       key={pr.id}
-                      className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/50 border border-transparent hover:border-neutral-300/50 dark:hover:border-neutral-700/50"
+                      className="group flex items-start gap-3 p-3  transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-900/50 border border-transparent hover:border-neutral-300/50 dark:hover:border-neutral-700/50"
                     >
                       <div className="shrink-0 mt-0.5">
                         <img
