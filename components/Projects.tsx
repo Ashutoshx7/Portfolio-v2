@@ -1,18 +1,18 @@
-import React from "react";
 import { Card } from "./Card";
 import { SquareArrowOutUpRightIcon } from "lucide-react";
+import Icons from "./Icons";
+import Nextjs from "@/icons/Nextjs";
+import NodeIcon from "@/icons/NodeIcon";
+import Ts from "@/icons/Ts";
 
 const Projects = () => {
   const techStack = [
-    { name: "Node.js", path: "/icons/node.svg" },
-    { name: "Typescript", path: "/icons/ts.svg" },
+    { name: "Node.js", children: <NodeIcon /> },
+    { name: "Typescript", children: <Ts /> },
     {
       name: "Next.js",
-      path: "/icons/nextjslight.svg",
+      children: <Nextjs />,
     },
-    { name: "Digital Ocean", path: "/icons/ocean.svg" },
-    { name: "Docker", path: "/icons/docker.svg" },
-    { name: "Redis", path: "/icons/redis.svg" },
   ];
 
   return (
@@ -49,6 +49,7 @@ const Projects = () => {
         {" "}
         Checkout Projects <SquareArrowOutUpRightIcon size={20} />
       </a>
+
       <span className="flex items-center mt-20">
         <span className="h-px flex-1 bg-linear-to-r from-transparent to-neutral-400"></span>
         <span className="h-px flex-1 bg-linear-to-l from-transparent to-neutral-400"></span>

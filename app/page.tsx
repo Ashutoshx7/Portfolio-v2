@@ -26,7 +26,7 @@ export default function Home() {
        videoSrc="/videos/sample.mp4"
        techStack={[
          { name: "React", path: "/icons/react.svg" },
-         { name: "TypeScript", path: "/icons/typescript.svg" }
+         { name: "TypeScript", path: "/icons/ts.svg" }
        ]}
      />
     </div>

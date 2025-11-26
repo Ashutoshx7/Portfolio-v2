@@ -1,7 +1,9 @@
 "use client";
+import GithubIcon from "@/icons/GithubIcon";
 import Icons from "./Icons";
 import { Icon } from "./ui/evervault-card";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+import WebIcon from "@/icons/webIcon";
 
 interface CardProps {
   status: "Ready" | "In Production";
@@ -11,7 +13,7 @@ interface CardProps {
   title: string;
   imageSrc: string;
   videoSrc?: string;
-  techStack: { name: string; path: string; darkPath?: string }[];
+  techStack: { name: string; children: React.ReactNode }[];
 }
 export function Card(props: CardProps) {
   return (
@@ -57,41 +59,41 @@ export function Card(props: CardProps) {
       <div className="absolute bottom-3">
         <div className="flex gap-2 ">
           {props.techStack.map((tech) => (
-            <Icons key={tech.name} name={tech.name} path={tech.path}  />
+            <Icons key={tech.name} name={tech.name}>
+              {tech.children}
+            </Icons>
           ))}
         </div>
         <div className="flex gap-3">
           {props.githubLink && (
-            <Icons
-              name="Code"
-              path="/icons/githubdark.svg"
-              link={props.githubLink}
-              className="border-none dark:hidden"
-            />
-          )}
-          {props.githubLink && (
-            <Icons
-              name="Code"
-              path="/icons/githublight.svg"
-              link={props.githubLink}
-              className="border-none hidden dark:block"
-            />
-          )}
-          {props.siteLink && (
-            <Icons
-              name="Visit Site"
-              path="/icons/webdark.svg"
-              link={props.siteLink}
-              className="border-none dark:hidden"
-            />
+            <a
+              href={props.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm mt-2 underline font-mono"
+            >
+              <Icons
+                name="GitHub"
+                className="dark:text-neutral-300 text-neutral-800"
+              >
+                <GithubIcon />
+              </Icons>
+            </a>
           )}
           {props.siteLink && (
-            <Icons
-              name="Visit Site"
-              path="/icons/weblight.svg"
-              link={props.siteLink}
-              className="border-none hidden dark:block"
-            />
+            <a
+              href={props.siteLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm mt-2 underline font-mono"
+            >
+              <Icons
+                name="visit site"
+                className="dark:text-neutral-300 text-neutral-800"
+              >
+                <WebIcon />
+              </Icons>
+            </a>
           )}
         </div>
       </div>

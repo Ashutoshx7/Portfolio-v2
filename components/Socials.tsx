@@ -1,52 +1,26 @@
 import React from "react";
 import Icons from "./Icons";
+import GithubIcon from "@/icons/GithubIcon";
+import LinkedinIcon from "@/icons/LinkedinIcon";
 
 const Socials = () => {
   return (
     <div className="lg:w-138 flex gap-3 ml-[185px] ">
       <Icons
-        path="/icons/githubdark.svg"
-        name="GitHub"
-        link="https://github.com/Piyushrathoree"
-        className="dark:hidden"
-      />
+      name="GitHub"
+      link="https://github.com/Piyushrathoree"
+      
+      >
+      <GithubIcon  />
+      </Icons>
       <Icons
-        path="/icons/githublight.svg"
-        name="GitHub"
-        link="https://github.com/Piyushrathoree"
-        className="hidden dark:block"
-      />
-      <Icons
-        path="/icons/linkedin.svg"
-        name="Linkedin"
-        link="https://linkedin.com/in/Piyushrathore--"
-        className=""
-      />
-
-      <Icons
-        path="/icons/githubdark.svg"
-        name="GitHub"
-        link="https://github.com/Piyushrathoree"
-        className=""
-      />
-      <Icons
-        path="/icons/githubdark.svg"
-        name="GitHub"
-        link="https://github.com/Piyushrathoree"
-        className=""
-      />
-      <Icons
-        path="/icons/githubdark.svg"
-        name="GitHub"
-        link="https://github.com/Piyushrathoree"
-        className=""
-      />
-      <Icons
-        path="/icons/githubdark.svg"
-        name="GitHub"
-        link="https://github.com/Piyushrathoree"
-        className=""
-      />
+      name="GitHub"
+      link="https://Linkedin.com/in/piyushrathore--"
+     
+      >
+      <LinkedinIcon className="h-7 w-7"/>
+      </Icons>
+     
     </div>
   );
 };
