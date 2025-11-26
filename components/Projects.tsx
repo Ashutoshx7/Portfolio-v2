@@ -43,7 +43,7 @@ const Projects = () => {
         />
       </div>
       <a
-        className="flex gap-2 items-center text-lg border w-[220px] dark:border-white/60  px-4 py-1 border-dashed mt-10  border-black/40  duration-300 dark:hover:bg-neutral-900 hover:bg-neutral-100 "
+        className="flex gap-2 items-center mx-auto text-lg border w-fit dark:border-white/60  px-4 py-1 border-dashed mt-10  border-black/40  duration-300 dark:bg-neutral-900 bg-neutral-100 hover:dark:bg-neutral-950 hover:bg-neutral-200 "
         href="/Project"
       >
         {" "}
