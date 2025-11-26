@@ -107,8 +107,8 @@ const GithubGraph = () => {
   }, [filterType]);
 
   return (
-    <div>
-      <div className="absolute right-6 w-212 h-px  opacity-90 dark:opacity-15"></div>
+    <div className="-mt-10 ">
+      <div className="absolute right-6 w-212 h-px  opacity-90 dark:opacity-15 "></div>
 
       <h1 className="text-neutral-900 dark:text-neutral-50/70  font-bold  text-4xl tracking-tight flex flex-col gap-1">
         <span className="font-mono text-sm font-normal">Featured</span>{" "}

@@ -6,6 +6,7 @@ import Graph from "@/components/Graph";
 import Hero from "@/components/Hero";
 
 import Projects from "@/components/Projects";
+import { BlogCard } from "@/components/BlogCard";
 
 export default function Home() {
   
@@ -15,6 +16,19 @@ export default function Home() {
      
       <Projects />  
       <Graph />
+     <BlogCard
+       status="Ready"
+       githubLink="https://github.com/example/repo"
+       siteLink="https://example.com"
+       description="This is a sample blog card description."
+       title="Sample Blog Card"
+       imageSrc="/images/sample.jpg"
+       videoSrc="/videos/sample.mp4"
+       techStack={[
+         { name: "React", path: "/icons/react.svg" },
+         { name: "TypeScript", path: "/icons/typescript.svg" }
+       ]}
+     />
     </div>
   );
 }

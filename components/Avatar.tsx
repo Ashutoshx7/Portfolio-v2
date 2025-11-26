@@ -4,17 +4,16 @@ interface avatarProps {
   classname?: string;
 }
 const Avatar = (props: avatarProps) => {
-  const bgColorDark = "bg-orange-300";
-  const bgColorLight = "bg-slate-300";
+  
   return (
     <div className="relative">
       <div
-        className={`flex justify-center items-center ${bgColorDark} dark:${bgColorLight} rounded-full  h-35 w-35 relative overflow-hidden ${props.classname}`}
+        className={`flex justify-center items-center rounded-full  h-40 w-40 relative overflow-hidden ${props.classname}`}
       >
         <img
-          src="/assets/logo.png"
+          src="/assets/erwin.jpg"
           alt="Avatar"
-          className="-mb-5 absolute h-35 w-35 scale-120 object-cover   "
+          className="-mb-5 absolute h-40 w-40 scale-120 object-cover   "
         />
       </div>
       <DiscordStatus />

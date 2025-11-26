@@ -16,7 +16,7 @@ const Projects = () => {
   ];
 
   return (
-    <div className="mt-10 mb-30 relative">
+    <div className="mt-5 mb-30 relative">
       <div className="flex flex-col gap-1 text-neutral-900 dark:text-neutral-50/70">
         <p className="text-sm font-mono ">Featured</p>
         <h2 className="text-4xl font-black font-serif  border-b border-black dark:border-white/40 w-fit border-dashed">
@@ -49,7 +49,10 @@ const Projects = () => {
         {" "}
         Checkout Projects <SquareArrowOutUpRightIcon size={20} />
       </a>
-      <div className="absolute -bottom-13 h-1 w-80  border-b border-dashed pb-10 dark:border-white/70 border-black/60  right-70  "></div>
+      <span className="flex items-center mt-20">
+        <span className="h-px flex-1 bg-linear-to-r from-transparent to-neutral-400"></span>
+        <span className="h-px flex-1 bg-linear-to-l from-transparent to-neutral-400"></span>
+      </span>
     </div>
   );
 };

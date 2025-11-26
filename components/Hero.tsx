@@ -4,7 +4,6 @@ import Avatar from "./Avatar";
 import { RippleButton } from "./ui/ripple-button";
 import Socials from "./Socials";
 
-
 const Hero = () => {
   return (
     <div className="relative mb-15">
@@ -59,7 +58,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="lg:w-138 flex gap-5 ml-[166px] font-sans">
+      <div className="lg:w-138 flex gap-5 ml-[185px] font-sans">
         <RippleButton
           rippleColor="#fafafa"
           className="rounded-none dark:border-white/60 border-neutral-700 border-dashed  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-transparent duration-300 py-1 px-2 text-black/70 dark:text-white/70 "
@@ -138,8 +137,11 @@ const Hero = () => {
           </span>
         </RippleButton>
       </div>
-      <Socials/>
-      <div className="absolute bottom-0 h-1 w-80  border-b border-dashed pb-10 dark:border-white/70 border-black/60  right-70  top-70"></div>
+      <Socials />
+      <span className="flex items-center mt-20">
+        <span className="h-px flex-1 bg-linear-to-r from-transparent to-neutral-400"></span>
+        <span className="h-px flex-1 bg-linear-to-l from-transparent to-neutral-400"></span>
+      </span>
     </div>
   );
 };

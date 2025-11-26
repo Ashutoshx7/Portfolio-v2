@@ -3,7 +3,7 @@ import Icons from "./Icons";
 
 const Socials = () => {
   return (
-    <div className="lg:w-138 flex gap-3 ml-[166px] ">
+    <div className="lg:w-138 flex gap-3 ml-[185px] ">
       <Icons
         path="/icons/githubdark.svg"
         name="GitHub"

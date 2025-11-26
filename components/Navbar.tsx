@@ -6,7 +6,7 @@ import Link from "next/link";
 import Container from "@/components/containers";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import ThemeToggle from "./theme-toggle";
-
+import { Home } from "lucide-react";
 
 const Navbar = () => {
   const navItems = [
@@ -38,10 +38,10 @@ const Navbar = () => {
     <Container>
       <motion.nav
         animate={{
-        //   boxShadow: scrolled ? "var(--shadow-input)" : "none",
-        //   width: isDesktop ? (scrolled ? "45%" : "100%") : "100%",
-         
-          borderRadius: "rem"
+          //   boxShadow: scrolled ? "var(--shadow-input)" : "none",
+          //   width: isDesktop ? (scrolled ? "45%" : "100%") : "100%",
+
+          borderRadius: "rem",
         }}
         transition={{
           duration: 0.3,
@@ -52,22 +52,16 @@ const Navbar = () => {
       >
         <Link
           href="/"
-          className=" transition-opacity  duration-300  border border-dashed dark:border-white/40 border-black/50  p-1 flex items-center justify-center dark:bg-neutral-800/60  "
+          className=" flex items-center justify-center dark:bg-neutral-800/60  "
         >
-          <Image
-            className="w-9 h-9 scale-110 hover:scale-130  duration-200"
-            src="/assets/logo.png"
-            width={100}
-            height={100}
-            alt="Avatar"
-          />
+          <Home className="dark:text-neutral-300 text-neutral-500 dark:hover:text-neutral-50 hover:text-neutral-950 duration-200" />
         </Link>
 
         {/* Navigation links on the right */}
         <div className="ml-auto flex flex-wrap items-center justify-end gap-3 sm:gap-6">
           {navItems.map((item, idx) => (
             <Link
-              className="text-sm relative px-3 py-1.5 text-neutral-600 dark:text-neutral-300 font-medium transition-colors duration-300 hover:text-neutral-900 dark:hover:text-neutral-50 border-2 border-dashed border-neutral-400/50 dark:border-neutral-600/80"
+              className="text-sm relative px-3 py-1.5 text-neutral-600 dark:text-neutral-300 font-medium transition-colors hover:text-neutral-900"
               href={item.href}
               key={idx}
               onMouseEnter={() => setHovered(idx)}
