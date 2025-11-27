@@ -288,6 +288,10 @@ const GithubGraph = () => {
           )}
         </div>
       )}
+      <span className="flex items-center mt-20">
+        <span className="h-px flex-1 bg-linear-to-r from-transparent to-neutral-400"></span>
+        <span className="h-px flex-1 bg-linear-to-l from-transparent to-neutral-400"></span>
+      </span>
     </div>
   );
 };

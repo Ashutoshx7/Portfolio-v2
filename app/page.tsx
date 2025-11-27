@@ -9,6 +9,7 @@ import Projects from "@/components/Projects";
 import { BlogCard } from "@/components/BlogCard";
 import { SquareArrowOutUpRightIcon } from "lucide-react";
 import Blogs from "@/components/Blogs";
+import Skills from "@/components/Skills";
 
 export default function Home() {
   
@@ -19,6 +20,7 @@ export default function Home() {
       <Projects />
       <Graph />
       <Blogs />
+      <Skills />
     </div>
   );
 }

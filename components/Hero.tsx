@@ -8,18 +8,18 @@ const Hero = () => {
   return (
     <div className="relative mb-15">
       <div className="flex gap-3 justify-start ">
-        <div className=" mr-10 mb-10 mt-2 -ml-7">
+        <div className=" mr-5 mb-10 mt-2 ">
           <Avatar />
         </div>
 
         <div>
-          <p className="text-[45px] leading-tight font-serif tracking-wider font-bold flex items-center gap-4">
+          <p className="text-[45px] leading-tight font-serif tracking-wider font-bold flex items-center gap-4 mt-3">
             Hi , I'm Piyush{" "}
             <span className="mx -3 "> — A Full Stack Developer!</span>
           </p>
 
-          <div className="font-sans text-neutral-400 text-lg  ">
-            <span className="flex items-center gap-2">
+          <div className="font-sans text-neutral-400 text-lg tracking-wide mt-2">
+            <span className="flex items-center gap-2 ">
               I build interactive web apps using{" "}
               <Tech logo="/icons/ts.svg" name="Typescript" className="w-27 " />
               ,
@@ -58,7 +58,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="lg:w-138 flex gap-5 ml-[185px] font-sans">
+      <div className="lg:w-138 flex gap-5 ml-48 font-sans">
         <RippleButton
           rippleColor="#fafafa"
           className="rounded-none dark:border-white/60 border-neutral-700 border-dashed  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-transparent duration-300 py-1 px-2 text-black/70 dark:text-white/70 "

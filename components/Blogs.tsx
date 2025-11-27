@@ -4,7 +4,7 @@ import { BlogCard } from './BlogCard';
 
 const Blogs = () => {
   return (
-    <div className="mt-20">
+    <div className="mt-20 mb-20 ">
       <p className="font-mono text-sm">Featured</p>
       <h2 className="text-4xl font-black font-serif  border-b border-black dark:border-white/40 w-fit border-dashed tracking-wide  ">
         Blogs
@@ -45,6 +45,10 @@ const Blogs = () => {
         {" "}
         Checkout Blogs <SquareArrowOutUpRightIcon size={20} />
       </a>
+      <span className="flex items-center mt-20">
+        <span className="h-px flex-1 bg-linear-to-r from-transparent to-neutral-400"></span>
+        <span className="h-px flex-1 bg-linear-to-l from-transparent to-neutral-400"></span>
+      </span>
     </div>
   );
 }

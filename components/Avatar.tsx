@@ -6,7 +6,7 @@ interface avatarProps {
 const Avatar = (props: avatarProps) => {
   
   return (
-    <div className="relative">
+    <div className="relative ">
       <div
         className={`flex justify-center items-center rounded-full  h-40 w-40 relative overflow-hidden ${props.classname}`}
       >
