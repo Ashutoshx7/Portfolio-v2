@@ -2,7 +2,7 @@ import React from "react";
 import Icons from "./Icons";
 import GithubIcon from "@/icons/GithubIcon";
 import LinkedinIcon from "@/icons/LinkedinIcon";
-import { X } from "lucide-react";
+import { Mail, X } from "lucide-react";
 
 const Socials = () => {
   return (
@@ -29,6 +29,9 @@ const Socials = () => {
       </Icons>{" "}
       <Icons name="Linkedin" link="https://Linkedin.com/in/piyushrathore--">
         <LinkedinIcon className="h-7 w-7" />
+      </Icons>
+      <Icons name="Mail" link="mailto:01piyush008@gmail.com">
+        <Mail className="h-7 w-7" />
       </Icons>
     </div>
   );

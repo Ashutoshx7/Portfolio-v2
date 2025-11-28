@@ -10,9 +10,11 @@ import { BlogCard } from "@/components/BlogCard";
 import { SquareArrowOutUpRightIcon } from "lucide-react";
 import Blogs from "@/components/Blogs";
 import Skills from "@/components/Skills";
+import { SocialLinks } from "@/components/SocialLinks";
+
 
 export default function Home() {
-  
+
   return (
     <div className="flex flex-col justify-start items-center min-h-screen py-2 mt-30">
       <Hero />
@@ -21,6 +23,8 @@ export default function Home() {
       <Graph />
       <Blogs />
       <Skills />
+      <SocialLinks
+      />
     </div>
   );
 }

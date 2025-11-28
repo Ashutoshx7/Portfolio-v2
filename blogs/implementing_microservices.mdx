@@ -1,0 +1,643 @@
+---
+title: "Building Microservices with Node.js: A Complete Guide"
+description: "Learn how to build scalable microservices architecture using Node.js with practical code snippets and explanations"
+author: "Your Name"
+date: "2025-11-28"
+tags: ["nodejs", "microservices", "architecture", "backend"]
+---
+
+# Building Microservices with Node.js: A Complete Guide
+
+Microservices architecture breaks down applications into small, independent services that work together. Let's explore how to build them with Node.js through practical examples.
+
+## What Are Microservices?
+
+Microservices are small, focused services that:
+- Handle one specific business function
+- Run independently
+- Communicate via APIs
+- Can be deployed separately
+- Scale individually based on demand
+
+**Example:** An e-commerce app might have separate services for users, products, orders, and payments instead of one monolithic application.
+
+## Basic Architecture
+
+
+Client → API Gateway 
+                    → User Service
+                     → Product Service  
+                     → Order Service
+
+
+Each service has its own:
+- Database
+- Business logic
+- API endpoints
+- Deployment process
+
+## 1. Simple User Service Example
+
+This service handles user registration and login.
+
+```javascript
+// user-service.js
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+const app = express();
+app.use(express.json());
+
+const users = []; // In production, use a database
+const JWT_SECRET = 'your-secret-key';
+
+// Register new user
+app.post('/register', async (req, res) => {
+  const { email, password } = req.body;
+  
+  // Hash password for security
+  const hashedPassword = await bcrypt.hash(password, 10);
+  
+  const user = {
+    id: users.length + 1,
+    email,
+    password: hashedPassword
+  };
+  
+  users.push(user);
+  
+  // Create JWT token
+  const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
+  
+  res.json({ token, user: { id: user.id, email } });
+});
+
+// Login user
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  
+  const user = users.find(u => u.email === email);
+  if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+  
+  const validPassword = await bcrypt.compare(password, user.password);
+  if (!validPassword) return res.status(401).json({ error: 'Invalid credentials' });
+  
+  const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
+  res.json({ token });
+});
+
+app.listen(3001, () => console.log('User service running on port 3001'));
+```
+
+**Key Points:**
+- Uses JWT for stateless authentication
+- Passwords are hashed with bcrypt
+- Each endpoint does one thing
+- Returns tokens for authenticated requests
+
+## 2. Product Service Example
+
+This service manages the product catalog.
+
+```javascript
+// product-service.js
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+const products = [
+  { id: 1, name: 'Laptop', price: 999, stock: 5 },
+  { id: 2, name: 'Mouse', price: 29, stock: 50 }
+];
+
+// Get all products
+app.get('/products', (req, res) => {
+  res.json(products);
+});
+
+// Get single product
+app.get('/products/:id', (req, res) => {
+  const product = products.find(p => p.id === parseInt(req.params.id));
+  if (!product) return res.status(404).json({ error: 'Not found' });
+  res.json(product);
+});
+
+// Create product
+app.post('/products', (req, res) => {
+  const { name, price, stock } = req.body;
+  const product = {
+    id: products.length + 1,
+    name,
+    price,
+    stock
+  };
+  products.push(product);
+  res.status(201).json(product);
+});
+
+// Update stock (for orders)
+app.patch('/products/:id/stock', (req, res) => {
+  const { quantity } = req.body;
+  const product = products.find(p => p.id === parseInt(req.params.id));
+  
+  if (product.stock < quantity) {
+    return res.status(400).json({ error: 'Insufficient stock' });
+  }
+  
+  product.stock -= quantity;
+  res.json(product);
+});
+
+app.listen(3002, () => console.log('Product service on port 3002'));
+```
+
+**Key Points:**
+- RESTful API design
+- Separate endpoint for stock updates (used by order service)
+- Simple CRUD operations
+- Stock validation before updates
+
+## 3. Order Service with Inter-Service Communication
+
+This service talks to other services to create orders.
+
+```javascript
+// order-service.js
+const express = require('express');
+const axios = require('axios');
+
+const app = express();
+app.use(express.json());
+
+const orders = [];
+
+app.post('/orders', async (req, res) => {
+  const { userId, productId, quantity } = req.body;
+  
+  try {
+    // 1. Verify user exists (call User Service)
+    await axios.get(`http://localhost:3001/users/${userId}`);
+    
+    // 2. Get product details (call Product Service)
+    const productResponse = await axios.get(
+      `http://localhost:3002/products/${productId}`
+    );
+    const product = productResponse.data;
+    
+    // 3. Update stock (call Product Service)
+    await axios.patch(
+      `http://localhost:3002/products/${productId}/stock`,
+      { quantity }
+    );
+    
+    // 4. Create order
+    const order = {
+      id: orders.length + 1,
+      userId,
+      productId,
+      quantity,
+      totalPrice: product.price * quantity,
+      status: 'completed'
+    };
+    
+    orders.push(order);
+    res.status(201).json(order);
+    
+  } catch (error) {
+    res.status(400).json({ 
+      error: error.response?.data?.error || 'Order failed' 
+    });
+  }
+});
+
+app.listen(3003, () => console.log('Order service on port 3003'));
+```
+
+**Key Points:**
+- Uses `axios` to call other services
+- Orchestrates multiple service calls
+- Handles errors from other services
+- Services communicate via HTTP/REST
+
+## 4. API Gateway
+
+Routes all client requests to appropriate services.
+
+```javascript
+// api-gateway.js
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+const app = express();
+
+// Route to User Service
+app.use('/api/users', createProxyMiddleware({ 
+  target: 'http://localhost:3001',
+  changeOrigin: true,
+  pathRewrite: { '^/api/users': '' }
+}));
+
+// Route to Product Service
+app.use('/api/products', createProxyMiddleware({ 
+  target: 'http://localhost:3002',
+  changeOrigin: true,
+  pathRewrite: { '^/api/products': '' }
+}));
+
+// Route to Order Service
+app.use('/api/orders', createProxyMiddleware({ 
+  target: 'http://localhost:3003',
+  changeOrigin: true,
+  pathRewrite: { '^/api/orders': '' }
+}));
+
+app.listen(3000, () => console.log('API Gateway on port 3000'));
+```
+
+**Key Points:**
+- Single entry point for clients
+- Routes requests to correct service
+- Can add authentication, rate limiting, logging here
+- Clients don't need to know about individual services
+
+## 5. Authentication Middleware
+
+Protect routes across services.
+
+```javascript
+// auth-middleware.js
+const jwt = require('jsonwebtoken');
+
+function authenticateToken(req, res, next) {
+  const token = req.headers['authorization']?.split(' ')[1];
+  
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied' });
+  }
+  
+  try {
+    const verified = jwt.verify(token, 'your-secret-key');
+    req.user = verified;
+    next();
+  } catch (error) {
+    res.status(403).json({ error: 'Invalid token' });
+  }
+}
+
+// Usage in any service:
+// app.get('/protected', authenticateToken, (req, res) => {
+//   res.json({ message: 'Access granted', user: req.user });
+// });
+
+module.exports = authenticateToken;
+```
+
+## 6. Error Handling Pattern
+
+Consistent error handling across services.
+
+```javascript
+// error-handler.js
+class AppError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+    this.isOperational = true;
+  }
+}
+
+// Global error handler middleware
+function errorHandler(err, req, res, next) {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal server error';
+  
+  console.error(`[ERROR] ${message}`, err);
+  
+  res.status(statusCode).json({
+    status: 'error',
+    statusCode,
+    message
+  });
+}
+
+// Usage:
+// app.use(errorHandler);
+// throw new AppError('Product not found', 404);
+
+module.exports = { AppError, errorHandler };
+```
+
+## 7. Service Discovery Pattern
+
+Services register and find each other dynamically.
+
+```javascript
+// service-registry.js
+const services = new Map();
+
+// Register a service
+function registerService(name, url) {
+  services.set(name, { url, lastHeartbeat: Date.now() });
+  console.log(`Service registered: ${name} at ${url}`);
+}
+
+// Get service URL
+function getService(name) {
+  const service = services.get(name);
+  if (!service) throw new Error(`Service ${name} not found`);
+  return service.url;
+}
+
+// Health check - remove dead services
+setInterval(() => {
+  const now = Date.now();
+  for (const [name, service] of services.entries()) {
+    if (now - service.lastHeartbeat > 30000) {
+      services.delete(name);
+      console.log(`Service removed: ${name} (no heartbeat)`);
+    }
+  }
+}, 10000);
+
+// Usage:
+// registerService('user-service', 'http://localhost:3001');
+// const userServiceUrl = getService('user-service');
+```
+
+## 8. Circuit Breaker Pattern
+
+Prevent cascading failures when a service is down.
+
+```javascript
+// circuit-breaker.js
+const axios = require('axios');
+
+class CircuitBreaker {
+  constructor(threshold = 5, timeout = 60000) {
+    this.failureCount = 0;
+    this.threshold = threshold;
+    this.timeout = timeout;
+    this.state = 'CLOSED'; // CLOSED, OPEN, HALF_OPEN
+  }
+  
+  async call(fn) {
+    if (this.state === 'OPEN') {
+      if (Date.now() - this.openedAt > this.timeout) {
+        this.state = 'HALF_OPEN';
+      } else {
+        throw new Error('Circuit breaker is OPEN');
+      }
+    }
+    
+    try {
+      const result = await fn();
+      this.onSuccess();
+      return result;
+    } catch (error) {
+      this.onFailure();
+      throw error;
+    }
+  }
+  
+  onSuccess() {
+    this.failureCount = 0;
+    if (this.state === 'HALF_OPEN') this.state = 'CLOSED';
+  }
+  
+  onFailure() {
+    this.failureCount++;
+    if (this.failureCount >= this.threshold) {
+      this.state = 'OPEN';
+      this.openedAt = Date.now();
+    }
+  }
+}
+
+// Usage:
+// const breaker = new CircuitBreaker();
+// const data = await breaker.call(() => 
+//   axios.get('http://localhost:3002/products')
+// );
+```
+
+## 9. Message Queue for Async Communication
+
+Use RabbitMQ for event-driven architecture.
+
+```javascript
+// message-queue.js
+const amqp = require('amqplib');
+
+// Publish event
+async function publishEvent(queueName, message) {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+  
+  await channel.assertQueue(queueName, { durable: true });
+  channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
+  
+  console.log(`Published to ${queueName}:`, message);
+  
+  setTimeout(() => connection.close(), 500);
+}
+
+// Consume events
+async function consumeEvents(queueName, callback) {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+  
+  await channel.assertQueue(queueName, { durable: true });
+  
+  channel.consume(queueName, (msg) => {
+    const data = JSON.parse(msg.content.toString());
+    callback(data);
+    channel.ack(msg);
+  });
+}
+
+// Usage in Order Service:
+// await publishEvent('order.created', { orderId: 123, userId: 1 });
+
+// Usage in Email Service:
+// consumeEvents('order.created', (order) => {
+//   console.log('Send email for order:', order);
+// });
+```
+
+## 10. Docker Setup
+
+Containerize each service for easy deployment.
+
+```dockerfile
+# Dockerfile (same for each service)
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install --production
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
+```
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - JWT_SECRET=your-secret
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "3002:3002"
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "3003:3003"
+    environment:
+      - PRODUCT_SERVICE_URL=http://product-service:3002
+      - USER_SERVICE_URL=http://user-service:3001
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - user-service
+      - product-service
+      - order-service
+```
+
+**Run everything:**
+```bash
+docker-compose up
+```
+
+## 11. Logging Across Services
+
+Centralized logging for debugging.
+
+```javascript
+// logger.js
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+    new winston.transports.Console({
+      format: winston.format.simple()
+    })
+  ]
+});
+
+// Usage:
+// logger.info('User registered', { userId: 123 });
+// logger.error('Database connection failed', { error: err.message });
+
+module.exports = logger;
+```
+
+## 12. Health Check Endpoints
+
+Monitor service availability.
+
+```javascript
+// health-check.js
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'UP',
+    timestamp: new Date(),
+    service: 'user-service',
+    uptime: process.uptime()
+  });
+});
+
+// Advanced health check
+app.get('/health/detailed', async (req, res) => {
+  const health = {
+    status: 'UP',
+    checks: {
+      database: await checkDatabase(),
+      memory: process.memoryUsage(),
+      dependencies: await checkDependencies()
+    }
+  };
+  
+  const status = health.checks.database ? 200 : 503;
+  res.status(status).json(health);
+});
+```
+
+## Testing Your Microservices
+
+```bash
+# Register user
+curl -X POST http://localhost:3000/api/users/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@test.com","password":"pass123"}'
+
+# Get products
+curl http://localhost:3000/api/products
+
+# Create order
+curl -X POST http://localhost:3000/api/orders \
+  -H "Content-Type: application/json" \
+  -d '{"userId":1,"productId":1,"quantity":2}'
+```
+
+## Best Practices Summary
+
+1. **Keep services small** - One business function per service
+2. **Use API Gateway** - Single entry point for clients
+3. **Implement circuit breakers** - Prevent cascading failures
+4. **Use message queues** - For async communication
+5. **Add health checks** - Monitor service status
+6. **Centralize logging** - Debug issues across services
+7. **Containerize** - Use Docker for consistency
+8. **Handle errors gracefully** - Don't let one service crash others
+9. **Secure service-to-service calls** - Use tokens or API keys
+10. **Document APIs** - Use Swagger/OpenAPI
+
+## When to Use Microservices
+
+**Good for:**
+- Large applications with multiple teams
+- Services that need independent scaling
+- Different technologies per service
+- Frequent deployments
+
+**Not good for:**
+- Small applications
+- Tight deadlines
+- Small teams
+- Simple CRUD apps
+
+## Conclusion
+
+Microservices provide flexibility and scalability but add complexity. Start with a monolith and split into microservices when you need independent scaling or deployment. The key is proper communication between services and handling failures gracefully.
+
+## Resources
+
+- [Node.js Docs](https://nodejs.org/docs)
+- [Docker Docs](https://docs.docker.com)
+- [Microservices Patterns](https://microservices.io)
+- [12 Factor App](https://12factor.net)
+
+Happy coding! 🚀
