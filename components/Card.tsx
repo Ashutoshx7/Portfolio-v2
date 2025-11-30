@@ -5,9 +5,9 @@ import { Icon } from "./ui/evervault-card";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 import WebIcon from "@/icons/webIcon";
 
-interface CardProps {
+export interface CardProps {
   status: "Ready" | "In Production";
-  githubLink: string;
+  githubLink?: string;
   siteLink?: string;
   description: string;
   title: string;
@@ -56,8 +56,8 @@ export function Card(props: CardProps) {
       <p className="text-sm text-gray-600 dark:text-gray-300 w-[400px] font-mono">
         {props.description}
       </p>
-      <div className="absolute bottom-3">
-        <div className="flex gap-2 ">
+      <div className="absolute bottom-3 flex flex-col ">
+        <div className="flex gap-2 -mb-2">
           {props.techStack.map((tech) => (
             <Icons key={tech.name} name={tech.name}>
               {tech.children}
@@ -69,7 +69,7 @@ export function Card(props: CardProps) {
             <a
               href={props.githubLink}
               target="_blank"
-              rel="noopener noreferrer"
+
               className="text-sm mt-2 underline font-mono"
             >
               <Icons
@@ -84,7 +84,7 @@ export function Card(props: CardProps) {
             <a
               href={props.siteLink}
               target="_blank"
-              rel="noopener noreferrer"
+
               className="text-sm mt-2 underline font-mono"
             >
               <Icons

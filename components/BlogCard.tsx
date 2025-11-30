@@ -4,14 +4,8 @@ import { Icon } from "./ui/evervault-card";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 
 interface BlogCardProps {
-  status: "Ready" | "In Production";
-  githubLink: string;
-  siteLink?: string;
-  description: string;
   title: string;
   imageSrc: string;
-  videoSrc?: string;
-  techStack: { name: string; path: string; darkPath?: string }[];
 }
 export function BlogCard(props: BlogCardProps) {
   return (
@@ -26,9 +20,6 @@ export function BlogCard(props: BlogCardProps) {
       <h2 className="text-2xl font-bold mt-4 mb-2  font-serif underline underline-offset-3 italic">
         {props.title}
       </h2>{" "}
-      <p className="text-sm text-gray-600 dark:text-gray-300 w-[400px] font-mono">
-        {props.description}
-      </p>
     </div>
   );
 }

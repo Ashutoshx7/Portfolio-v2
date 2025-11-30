@@ -64,7 +64,7 @@ const Hero = () => {
           className="rounded-none dark:border-white/60 border-neutral-700 border-dashed  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-transparent duration-300 py-1 px-2 text-black/70 dark:text-white/70 "
         >
           {" "}
-          <div className="flex items-center gap-1">
+          <a className="flex items-center gap-1" href="https://drive.google.com/file/d/1HbPyx_dw6osV4-jZA0Xfm1Xkyu_4eq63/view?usp=sharing">
             Resume/CV
             <svg
               className="size-5"
@@ -102,14 +102,14 @@ const Hero = () => {
                 </g>{" "}
               </g>
             </svg>
-          </div>
+          </a>
         </RippleButton>
         <RippleButton
           rippleColor="#fafafa"
           className="rounded-none dark:border-white/60 border-neutral-700 border-dashed  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-transparent duration-300 py-1 px-2 text-black/70 dark:text-white/70 "
         >
           {" "}
-          <span className="flex gap-1 items-center">
+          <a href="/contact" className="flex gap-1 items-center">
             Get in touch
             <svg
               viewBox="0 0 24 24"
@@ -134,7 +134,7 @@ const Hero = () => {
                 ></path>{" "}
               </g>
             </svg>
-          </span>
+          </a>
         </RippleButton>
       </div>
       <Socials />
