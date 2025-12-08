@@ -6,7 +6,7 @@ import { Mail, X } from "lucide-react";
 
 const Socials = () => {
   return (
-    <div className="lg:w-138 flex gap-3 ml-48 ">
+    <div className="flex gap-3 mt-5">
       <Icons name="GitHub" link="https://github.com/Piyushrathoree">
         <GithubIcon />
       </Icons>

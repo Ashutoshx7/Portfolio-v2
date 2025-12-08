@@ -29,11 +29,18 @@ const GithubGraph = () => {
   const [showPRSection, setShowPRSection] = useState(true);
   const [closedPRIds, setClosedPRIds] = useState<Set<number>>(new Set());
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const initialCount = 3;
+  const initialCount = 2;
 
   useEffect(() => {
     setMounted(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -107,16 +114,13 @@ const GithubGraph = () => {
   }, [filterType]);
 
   return (
-    <div className="-mt-10 pl-6">
-      <div className="absolute right-6 w-212 h-px  opacity-90 dark:opacity-15 "></div>
+    <div>
+      <div className="hidden md:block absolute right-6 w-212 h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
 
-      <h1 className="text-neutral-900 dark:text-neutral-50/70  font-bold  text-4xl tracking-tight flex flex-col gap-1">
-        <span className="font-mono text-sm font-normal">Featured</span>{" "}
-        <span className="font-serif border-b border-black dark:border-white/40 w-fit border-dashed ">
-          Proof Of Work
-        </span>
+      <h1 className="text-neutral-900 dark:text-neutral-50 font-custom font-bold  text-3xl tracking-tight  py-2">
+        <span className="font-serif border-b border-neutral-700 dark:border-neutral-500 border-dashed">Proof Of Work</span>
       </h1>
-      <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) my-[0.4] opacity-90 dark:opacity-15"></div>
+      <div className="hidden md:block absolute right-6 w-212 h-px bg-(--pattern-fg) my-[0.4] opacity-90 dark:opacity-15"></div>
       <p
         className=" font-custom2 text-neutral-700 dark:text-neutral-300 mt-3 px-4 py-[7px]
            text-sm inline-block
@@ -128,17 +132,16 @@ const GithubGraph = () => {
       </p>
 
       {/* Graph Component */}
-      <div className="w-240 scale-130 mb-10 mt-5">
+      <div className="w-full flex justify-center">
         <div className="flex w-full justify-center">
           {mounted && (
             <>
               <GitHubCalendar
                 username="Piyushrathoree"
                 colorScheme={theme === "dark" ? "light" : "light"}
-                blockSize={10}
-                blockMargin={3}
-                fontSize={9}
-               
+                blockSize={isMobile ? 7 : 10}
+                blockMargin={isMobile ? 2 : 3}
+                fontSize={isMobile ? 10 : 12}
                 renderBlock={(block: any, activity: any) =>
                   cloneElement(block, {
                     "data-tooltip-id": "github-tooltip",
@@ -149,7 +152,8 @@ const GithubGraph = () => {
               <Tooltip
                 id="github-tooltip"
                 style={{
-                  color: theme === "dark" ? "#000000" : "#ffffff",
+                  backgroundColor: theme === "dark" ? "#171717" : "#ffffff",
+                  color: theme === "dark" ? "#e5e5e5" : "#171717",
                   borderRadius: "8px",
                   padding: "8px 12px",
                   fontSize: "12px",
@@ -159,25 +163,24 @@ const GithubGraph = () => {
                     theme === "dark"
                       ? "1px solid #404040"
                       : "1px solid #e5e5e5",
+                  opacity: 1,
                 }}
               />
             </>
           )}
         </div>
       </div>
-
-      {/* PRs Section */}
       {showPRSection && (
         <div className="mt-4">
-          <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mr-1">
-            <h2 className="text-neutral-900 dark:text-neutral-50  font-semibold text-2xl tracking-tight">
-              <span className="font-serif">Pull Requests</span>
+          <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-neutral-900 dark:text-neutral-50 font-custom font-bold text-2xl tracking-tight">
+              <span className="font-serif border-b border-neutral-700 dark:border-neutral-500 border-dashed ">Pull Requests</span>
             </h2>
             <div className="flex items-center gap-2">
-              <div className="flex gap-1 bg-black/5 dark:bg-white/5 p-1 border border-dashed border-neutral-700/30 dark:border-neutral-300/30 ">
+              <div className="flex gap-1 bg-black/5 dark:bg-white/5  p-1 border border-dashed border-neutral-900/30 dark:border-neutral-50/30 ">
                 <button
                   onClick={() => setFilterType("merged")}
-                  className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${
+                  className={`px-3 py-1.5  text-xs font-medium transition-all duration-200 ${
                     filterType === "merged"
                       ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50 shadow-sm"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
@@ -187,7 +190,7 @@ const GithubGraph = () => {
                 </button>
                 <button
                   onClick={() => setFilterType("open")}
-                  className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${
+                  className={`px-3 py-1.5  text-xs font-medium transition-all duration-200 ${
                     filterType === "open"
                       ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50 shadow-sm"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
@@ -197,7 +200,7 @@ const GithubGraph = () => {
                 </button>
                 <button
                   onClick={() => setFilterType("closed")}
-                  className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${
+                  className={`px-3 py-1.5  text-xs font-medium transition-all duration-200 ${
                     filterType === "closed"
                       ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50 shadow-sm"
                       : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
@@ -208,14 +211,14 @@ const GithubGraph = () => {
               </div>
             </div>
           </div>
-          <p className="text-xs text-neutral-600 dark:text-neutral-400 -mt-2 mb-4 ">
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 font-custom2 mb-4">
             {filterType === "merged"
               ? "Merged contributions to open source"
               : filterType === "open"
               ? "Active pull requests"
               : "Closed pull requests"}
           </p>
-          <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+          <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
 
           {loading ? (
             <div className="text-neutral-600 dark:text-neutral-400 font-custom2 text-sm mt-4">
@@ -230,20 +233,18 @@ const GithubGraph = () => {
                   .map((pr, index) => (
                     <div
                       key={pr.id}
-                      className="group flex items-start gap-3 p-3  transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-900/50 border border-transparent hover:border-neutral-300/50 dark:hover:border-neutral-700/50"
+                      className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/50 border border-transparent hover:border-neutral-300/50 dark:hover:border-neutral-700/50"
                     >
                       <div className="shrink-0 mt-0.5">
-                        <img
-                          src={
+                        <div
+                          className={`w-1 h-1 rounded-full group-hover:scale-150 transition-transform duration-200 ${
                             filterType === "merged"
-                              ? "/icons/gitmerge.svg"
+                              ? "bg-linear-to-r from-purple-400 to-pink-400"
                               : filterType === "open"
-                              ? "/icons/gitopen.svg"
-                              : "/icons/gitclose.svg"
-                          }
-                          alt={filterType}
-                          className="w-4 h-4"
-                        />
+                              ? "bg-linear-to-r from-green-400 to-emerald-400"
+                              : "bg-linear-to-r from-red-400 to-rose-400"
+                          }`}
+                        ></div>
                       </div>
                       <a
                         href={pr.url}
@@ -265,10 +266,14 @@ const GithubGraph = () => {
                 <div className="flex justify-center mt-6">
                   <button
                     onClick={() => setShowAll(!showAll)}
-                    className="px-4 py-2 text-sm font-custom2 font-medium text-neutral-900 dark:text-neutral-50 
-                  bg-neutral-100 dark:bg-neutral-800/60 hover:bg-neutral-200 dark:hover:bg-neutral-700/3  0
-                  border border-neutral-700/50 dark:border-neutral-300/50 border-dashed
-                  transition-all duration-300"
+                    className="group relative overflow-hidden rounded-lg  w-full
+                            bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
+                            border border-neutral-200 dark:border-neutral-800 
+                            text-neutral-800 dark:text-neutral-200 text-sm font-medium px-6 py-2.5 
+                            transition-all duration-300 
+                            hover:from-neutral-50 hover:to-neutral-100 dark:hover:from-neutral-800 dark:hover:to-neutral-800
+                            shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,1)] 
+                            dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]"
                   >
                     {showAll
                       ? "↑ Collapse"
@@ -280,16 +285,12 @@ const GithubGraph = () => {
               )}
             </div>
           ) : (
-            <div className="text-secondary  text-sm mt-4">
+            <div className="text-secondary font-custom2 text-sm mt-4">
               No pull requests found
             </div>
           )}
         </div>
       )}
-      <span className="flex items-center mt-20">
-        <span className="h-px flex-1 bg-linear-to-r from-transparent to-neutral-400"></span>
-        <span className="h-px flex-1 bg-linear-to-l from-transparent to-neutral-400"></span>
-      </span>
     </div>
   );
 };
