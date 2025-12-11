@@ -24,28 +24,93 @@ const Skills = () => {
           My Skillset
         </h1>
       </div>
-      <div className="border  border-black/20 dark:border-white/10 w-full max-w-4xl mx-auto p-4 relative flex flex-wrap gap-4 justify-center items-center">
+      <div className="border  border-black/20 dark:border-white/10 w-full max-w-4xl mx-auto p-4 pb-7 relative flex flex-wrap gap-4 justify-center items-center">
         <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
         <Icon className="absolute h-6 w-6 -bottom-3 -left-3 dark:text-white text-black" />
         <Icon className="absolute h-6 w-6 -top-3 -right-3 dark:text-white text-black" />
         <Icon className="absolute h-6 w-6 -bottom-3 -right-3 dark:text-white text-black" />
 
         {[
-          { name: "Typescript", icon: <Ts />, className: "w-27" },
-          { name: "Node.js", icon: <NodeIcon />, className: "w-22" },
-          { name: "Next.js", icon: <Nextjs />, className: "w-22" },
-          { name: "Python", icon: <Py />, className: "w-22" },
-          { name: "React", icon: <ReactIcon />, className: "w-27" },
-          { name: "Docker", icon: <DockerIcon />, className: "w-22" },
-          { name: "Git", icon: <GitIcon />, className: "w-22" },
-          { name: "Prisma", icon: <Prisma />, className: "w-22" },
-          { name: "Redis", icon: <RedisIcon />, className: "w-27" },
-          { name: "Tailwind css", icon: <TailwindIcon />, className: "w-22" },
-          { name: "Golang", icon: <GoIcon />, className: "w-22" },
-          { name: "MongoDB", icon: <Mongo />, className: "w-22" },
-          { name: "Bun", icon: <Bun />, className: "w-22" },
-        ].map(({ name, icon, className }) => (
-          <Icons key={name} name={name} className={className}>
+          {
+            name: "Typescript",
+            icon: <Ts />,
+            className: "w-27",
+            link: "https://www.typescriptlang.org/",
+          },
+          {
+            name: "Node.js",
+            icon: <NodeIcon />,
+            className: "w-22",
+            link: "https://nodejs.org/",
+          },
+          {
+            name: "Next.js",
+            icon: <Nextjs />,
+            className: "w-22",
+            link: "https://nextjs.org/",
+          },
+          {
+            name: "Python",
+            icon: <Py />,
+            className: "w-22",
+            link: "https://www.python.org/",
+          },
+          {
+            name: "React",
+            icon: <ReactIcon />,
+            className: "w-27",
+            link: "https://react.dev/",
+          },
+          {
+            name: "Docker",
+            icon: <DockerIcon />,
+            className: "w-22",
+            link: "https://www.docker.com/",
+          },
+          {
+            name: "Git",
+            icon: <GitIcon />,
+            className: "w-22",
+            link: "https://git-scm.com/",
+          },
+          {
+            name: "Prisma",
+            icon: <Prisma />,
+            className: "w-22",
+            link: "https://www.prisma.io/",
+          },
+          {
+            name: "Redis",
+            icon: <RedisIcon />,
+            className: "w-27",
+            link: "https://redis.io/",
+          },
+          {
+            name: "Tailwind css",
+            icon: <TailwindIcon />,
+            className: "w-22",
+            link: "https://tailwindcss.com/",
+          },
+          {
+            name: "Golang",
+            icon: <GoIcon />,
+            className: "w-22",
+            link: "https://go.dev/",
+          },
+          {
+            name: "MongoDB",
+            icon: <Mongo />,
+            className: "w-22",
+            link: "https://www.mongodb.com/",
+          },
+          {
+            name: "Bun",
+            icon: <Bun />,
+            className: "w-22",
+            link: "https://bun.sh/",
+          },
+        ].map(({ name, icon, className, link }) => (
+          <Icons key={name} name={name} className={className} link={link}>
             {icon}
           </Icons>
         ))}
