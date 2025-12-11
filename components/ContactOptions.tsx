@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Phone, Twitter, Send } from "lucide-react";
+import { Phone, Twitter, Send, X } from "lucide-react";
 
 export function ContactOptions() {
   return (
@@ -59,7 +59,21 @@ export function ContactOptions() {
         >
           <div className="flex items-center gap-4">
             <div className="p-3 bg-neutral-100 dark:bg-neutral-800 rounded-full group-hover:bg-white dark:group-hover:bg-neutral-700 transition-colors">
-              <Twitter className="w-5 h-5 text-neutral-900 dark:text-neutral-100" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                id="Twitter-X--Streamline-Bootstrap"
+                height="16"
+                width="16"
+                className="w-5 h-5 text-neutral-900 dark:text-neutral-100"
+              >
+                <desc>Twitter X Streamline Icon: https://streamlinehq.com</desc>
+                <path
+                  d="M12.6 0.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867 -5.07 -4.425 5.07H0.316l5.733 -6.57L0 0.75h5.063l3.495 4.633L12.601 0.75Zm-0.86 13.028h1.36L4.323 2.145H2.865z"
+                  strokeWidth=""
+                  fill="currentColor"
+                ></path>
+              </svg>
             </div>
             <div>
               <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
