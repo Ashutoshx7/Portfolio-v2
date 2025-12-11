@@ -17,11 +17,11 @@ export interface CardProps {
 }
 export function Card(props: CardProps) {
   return (
-    <div className="border  border-black/20 dark:border-white/20 flex flex-col items-start max-w-md mx-auto p-4 relative h-120">
-      <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
-      <Icon className="absolute h-6 w-6 -bottom-3 -left-3 dark:text-white text-black" />
-      <Icon className="absolute h-6 w-6 -top-3 -right-3 dark:text-white text-black" />
-      <Icon className="absolute h-6 w-6 -bottom-3 -right-3 dark:text-white text-black" />
+    <div className="border  border-black/20 dark:border-white/20 flex flex-col items-start max-w-108 mx-auto p-4 relative min-h-115">
+      <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white/80 text-black/80" />
+      <Icon className="absolute h-6 w-6 -bottom-3 -left-3 dark:text-white/80 text-black/80" />
+      <Icon className="absolute h-6 w-6 -top-3 -right-3 dark:text-white/80 text-black/80" />
+      <Icon className="absolute h-6 w-6 -bottom-3 -right-3 dark:text-white/80 text-black/80" />
 
       <div className="relative">
         <HeroVideoDialog
@@ -53,11 +53,11 @@ export function Card(props: CardProps) {
           {props.status}
         </div>
       </div>
-      <p className="text-sm text-gray-600 dark:text-gray-300 w-[400px] font-mono">
+      <p className="text-sm text-gray-600 dark:text-neutral-400  font-mono ">
         {props.description}
       </p>
       <div className="absolute bottom-3 flex flex-col ">
-        <div className="flex gap-2 -mb-2">
+        <div className="flex gap-2 -mb-4">
           {props.techStack.map((tech) => (
             <Icons key={tech.name} name={tech.name}>
               {tech.children}
