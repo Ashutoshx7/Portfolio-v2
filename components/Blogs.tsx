@@ -25,12 +25,17 @@ const Blogs = () => {
       </div>
       <div className="flex max-sm:flex-col items-center gap-10 mt-10 justify-center">
         {getBlogCards.map((card, idx) => (
-          <BlogCard key={idx} title={card.title} imageSrc={card.imageSrc} blogLink={card.blogLink} />
+          <BlogCard
+            key={idx}
+            title={card.title}
+            imageSrc={card.imageSrc}
+            blogLink={card.blogLink}
+          />
         ))}
       </div>
       <a
-        className="flex gap-2 items-center mx-auto text-lg border w-fit dark:border-white/60  px-4 py-1 border-dashed mt-10  border-black/40  duration-300 dark:bg-neutral-900 bg-neutral-100 hover:dark:bg-neutral-950 hover:bg-neutral-200 "
-        href="/blog"
+        className="flex gap-2 mt-10 items-center mx-auto text-md w-fit border rounded-sm  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-neutral-900 duration-300 py-1.5 px-2 text-black/70 dark:text-white/70 shadow-inner shadow-neutral-400 dark:shadow-neutral-500"
+        href="/blogs"
       >
         {" "}
         Checkout Blogs <SquareArrowOutUpRightIcon size={20} />
