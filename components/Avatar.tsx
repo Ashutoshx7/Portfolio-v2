@@ -13,7 +13,7 @@ const Avatar = (props: avatarProps) => {
         <img  
           src="/assets/erwin.jpg"
           alt="Avatar"
-          className="-mb-5 absolute md:h-36 md:w-36 h-20 w-20 scale-120 object-cover   "
+          className="-mb-5 absolute md:h-36 md:w-36 h-20 w-20 scale-125 object-cover   "
         />
       </div>
       <DiscordStatus />

@@ -13,19 +13,9 @@ export default async function BlogIndex() {
   const posts = await getAllBlogs();
 
   return (
-    <Container className="min-h-screen px-4 pt-20 relative mx-auto w-240">
-      <div
-        className="absolute right-0 top-0 h-full w-6 border-r border-dashed
-         
-          bg-size-[10px_10px] bg-fixed opacity-10 dark:opacity-30 dark:border-neutral-500"
-      />
-
+    <Container className="min-h-screen px-4 pt-20 relative mx-auto sm:w-230">
       {/* LEFT BORDER */}
-      <div
-        className="absolute left-0 top-0 h-full border-l border-dashed 
-          
-          bg-size-[10px_10px] bg-fixed opacity-10 dark:opacity-30 dark:border-neutral-500"
-      />
+
       <div className=" mx-auto mt-10">
         {/* Header */}
         <div className="mb-3">

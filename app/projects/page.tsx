@@ -38,12 +38,8 @@ const ProjectsData: {
         name: "Next.js",
         children: <Nextjs />,
       },
-      {
-        name: "tailwindcss",
-        children: <TailwindIcon />,
-      },
+
       { name: "Digital Ocean", children: <OceanIcon /> },
-      { name: "Vercel", children: <VercelIcon /> },
       { name: "Mongo DB", children: <Mongo /> },
       { name: "Bun", children: <Bun /> },
       { name: "Redis", children: <RedisIcon /> },
@@ -170,7 +166,7 @@ const ProjectsData: {
 ];
 const page = () => {
   return (
-    <div className="flex flex-col justify-start items-start  min-h-screen pt-35 bg-accent/20 w-240 mx-auto">
+    <div className="flex flex-col justify-start items-start  min-h-screen pt-25 sm:pt-35 sm:w-230 mx-auto">
       <div className="flex flex-col ml-5 ">
         <h1 className="font-serif  text-4xl tracking-tight font-black border-b border-black dark:border-white/40 w-fit border-dashed">
           Projects
@@ -180,7 +176,7 @@ const page = () => {
         </p>
       </div>
       <div className="mx-auto">
-        <div className="grid sm:grid-cols-2 gap-10 mt-10 ">
+        <div className="grid sm:grid-cols-2 gap-6 mt-10 max-sm:w-95">
           {ProjectsData.map((project) => {
             return (
               <Card
