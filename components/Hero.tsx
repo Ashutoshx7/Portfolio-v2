@@ -6,68 +6,88 @@ import Socials from "./Socials";
 
 const Hero = () => {
   return (
-    <div className="relative mb-15 w-full">
+    <div className="relative mb-15 sm:px-10 sm:w-230">
       <Avatar />
       <div className="">
         <div>
-          <p className="text-3xl md:text-[45px] leading-tight font-serif tracking-wider font-bold flex flex-wrap items-start gap-2 md:gap-4 mt-3">
-            Hi, I'm Piyush — A Full Stack Developer!
+          <p className="text-5xl  leading-tight font-serif tracking-wider font-bold flex flex-wrap items-start gap-2 md:gap-4 mt-3 sm:hidden">
+            Hi, I'm Piyush <br />
+            <span className="text-neutral-400 text-3xl">
+              An Engineer & Full Stack dev
+            </span>
+          </p>
+          <p className="text-5xl leading-tight font-serif tracking-wider font-bold max-sm:hidden flex flex-wrap items-start gap-2 md:gap-4 mt-3 ">
+            Hi, I'm Piyush —
+            <span className="text-neutral-400"> A Full Stack developer. </span>
           </p>
 
-          <div className="font-sans text-neutral-400 md:text-lg text-md tracking-wide mt-2">
-            <span className="flex items-center gap-2 ">
-              I build interactive web apps using{" "}
-              <Tech logo="/icons/ts.svg" name="Typescript" className="w-27 " />
+          <div className="font-sans text-neutral-400 sm:text-lg text-[14px] tracking-wide mt-2">
+            <span className="flex items-center sm:gap-x-2 flex-wrap ">
+              <span className="truncate">
+                {" "}
+                I build interactive web apps using{" "}
+              </span>
+              <Tech
+                logo="/icons/ts.svg"
+                name="Typescript"
+                className="w-30 max-sm:scale-85 rounded-sm "
+              />
               ,
+              <br />
               <Tech
                 logo="/icons/node.svg"
                 name="Node.js"
-                className=" w-22 "
+                className=" w-22 max-sm:scale-85 rounded-sm -ml-1"
               />{" "}
               ,
               <Tech
                 logo="/icons/nextjslight.svg"
                 name="Next.js"
-                className=" w-22 "
+                className=" w-22 max-sm:scale-85 rounded-sm"
               />{" "}
+              ,<br />
+              <Tech
+                logo="/icons/python.svg"
+                name="Python"
+                className=" w-22 max-sm:scale-85 rounded-sm"
+              />
               ,
-            </span>
-            <span className="flex items-center gap-2 mt-1 mb-1">
-              <Tech logo="/icons/python.svg" name="Python" className=" w-22 " />
-              <span>
-                with the focus on{" "}
+              <Tech
+                logo="/icons/postgres.svg"
+                name="PostgreSQL"
+                className=" w-30 max-sm:scale-85 rounded-sm"
+              />
+              <span className="flex items-center gap-2 mt-1 mb-1">
+                mainly focused on{" "}
                 <span className="dark:text-white font-semibold text-neutral-500">
                   Backend
                 </span>{" "}
                 side.
               </span>
             </span>
-            Enthusiastic about{" "}
-            <span className="font-semibold text-black/50 dark:text-neutral-100">
+            Getting daily dopamine by Learning about{" "}
+            <span className="font-semibold  text-black/50 dark:text-neutral-100">
               Artificial Intelligence
             </span>{" "}
-            and{" "}
+            and contributing to{" "}
             <span className="font-semibold text-black/50 dark:text-neutral-100">
-              Open Source Contribution
+              Open Source
             </span>
             .
           </div>
         </div>
       </div>
       <div className="flex flex-wrap gap-5 font-sans mt-5">
-        <RippleButton
-          rippleColor="#fafafa"
-          className="rounded-none dark:border-white/60 border-neutral-700 border-dashed  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-transparent duration-300 py-1 px-2 text-black/70 dark:text-white/70 "
-        >
+        <button className="rounded-sm dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-neutral-900 duration-300 py-1 px-2 text-black/70 dark:text-white/70 shadow-inner shadow-neutral-400 dark:shadow-neutral-500">
           {" "}
           <a
-            className="flex items-center gap-1"
+            className="flex items-center gap-2"
             href="https://drive.google.com/file/d/1HbPyx_dw6osV4-jZA0Xfm1Xkyu_4eq63/view?usp=sharing"
           >
             Resume/CV
             <svg
-              className="size-5"
-              fill="currentColor"
+              fill="black"
+              className="size-5 text-black/70 dark:text-white/70 dark:fill-white"
               viewBox="0 0 846.66 846.66"
               style={{
                 shapeRendering: "geometricPrecision",
@@ -102,11 +122,8 @@ const Hero = () => {
               </g>
             </svg>
           </a>
-        </RippleButton>
-        <RippleButton
-          rippleColor="#fafafa"
-          className="rounded-none dark:border-white/60 border-neutral-700 border-dashed  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-transparent duration-300 py-1 px-2 text-black/70 dark:text-white/70 "
-        >
+        </button>
+        <button className="rounded-sm dark:border-white/60 border-neutral-700 border-dashed  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-neutral-900 duration-300 py-1 px-2 text-black/70 dark:text-white/70 shadow-inner shadow-neutral-400 dark:shadow-neutral-500">
           {" "}
           <a href="/contact" className="flex gap-1 items-center">
             Get in touch
@@ -134,7 +151,7 @@ const Hero = () => {
               </g>
             </svg>
           </a>
-        </RippleButton>
+        </button>
       </div>
       <Socials />
       <span className="flex items-center mt-20">
