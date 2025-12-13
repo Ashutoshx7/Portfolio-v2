@@ -75,6 +75,7 @@ export function HeroVideoDialog({
   className,
 }: HeroVideoProps) {
   // const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const selectedAnimation = animationVariants[animationStyle];
 
   return (
@@ -85,12 +86,19 @@ export function HeroVideoDialog({
         className="group relative cursor-pointer border-0 bg-transparent p-0"
         // onClick={() => setIsVideoOpen(true)}
       >
+        {!loaded && (
+          <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-800 animate-pulse rounded-sm" />
+        )}
         <img
           src={thumbnailSrc}
           alt={thumbnailAlt}
           width={1920}
-          height={1080} 
-          className="w-full  shadow-lg transition-all duration-200 ease-out rounded-sm"
+          height={1080}
+          onLoad={() => setLoaded(true)}
+          className={cn(
+            "w-full shadow-lg transition-all duration-200 ease-out rounded-sm",
+            loaded ? "opacity-100" : "opacity-0"
+          )}
         />
         {/* <div className="absolute inset-0 flex scale-[0.9] items-center justify-center rounded-2xl transition-all duration-200 ease-out opacity-0 group-hover:opacity-100 group-hover:scale-100">
           <div className="bg-primary/10 flex size-28 items-center justify-center rounded-full backdrop-blur-md">
