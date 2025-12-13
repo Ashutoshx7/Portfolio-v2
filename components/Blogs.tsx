@@ -35,7 +35,7 @@ const Blogs = () => {
       </div>
       <a
         className="flex gap-2 mt-10 items-center mx-auto text-md w-fit border rounded-sm  dark:bg-neutral-800 bg-neutral-100/70 hover:bg-neutral-200 dark:hover:bg-neutral-900 duration-300 py-1.5 px-2 text-black/70 dark:text-white/70 shadow-inner shadow-neutral-400 dark:shadow-neutral-500"
-        href="/blogs"
+        href="/blog"
       >
         {" "}
         Checkout Blogs <SquareArrowOutUpRightIcon size={20} />
