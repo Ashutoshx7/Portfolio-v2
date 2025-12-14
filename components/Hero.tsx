@@ -37,9 +37,9 @@ const Hero = () => {
               ,
               <br />
               <Tech
-                logo="/icons/node.svg"
-                name="Node.js"
-                className=" w-22 max-sm:scale-85 rounded-sm -ml-1"
+                logo="/icons/Bun.svg"
+                name="Bun"
+                className=" w-19 max-sm:scale-85 rounded-sm -ml-1"
               />{" "}
               ,
               <Tech
