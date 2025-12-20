@@ -53,7 +53,7 @@ export function Card(props: CardProps) {
           {props.status}
         </div>
       </div>
-      <p className="text-sm text-gray-600 dark:text-neutral-400  font-mono ">
+      <p className="text-sm text-gray-600 dark:text-neutral-400   ">
         {props.description}
       </p>
       <div className="absolute bottom-3 flex flex-col ">
