@@ -54,7 +54,7 @@ const GithubGraph = () => {
             : "author:Piyushrathoree type:pr is:closed is:unmerged";
 
         const query = `query {
-          search(query: "${searchQuery}", type: ISSUE, first: 12) {
+          search(query: "${searchQuery}", type: ISSUE, first: 20) {
             edges {
               node {
                 ... on PullRequest {
