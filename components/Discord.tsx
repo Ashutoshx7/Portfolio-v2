@@ -13,6 +13,14 @@ export const DiscordStatus = () => {
   const DISCORD_ID = "1187126125722353768";
   const data = useLanyard(DISCORD_ID);
   const [elapsed, setElapsed] = useState<string>("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMobileClick = () => {
+    setIsOpen(true);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 4000);
+  };
 
   // 1. Find Activity
   const activity = data?.activities?.find(
@@ -73,7 +81,6 @@ export const DiscordStatus = () => {
             alt="Cursor"
             className="w-3.5 h-3.5 opacity-90 "
           />
-          
           {/* 'Cursor' Text */}
           <span className="text-black dark:text-white font-bold">Cursor</span>
         </span>
@@ -101,9 +108,12 @@ export const DiscordStatus = () => {
   // SCENARIO A: Online (Pulsing Trigger)
   if (data.discord_status === "online") {
     return (
-      <Tooltip>
+      <Tooltip open={isOpen} onOpenChange={setIsOpen}>
         <TooltipTrigger asChild>
-          <div className="absolute bottom-1 left-28 flex h-4 w-4 items-center justify-center cursor-pointer">
+          <div
+            onClick={handleMobileClick}
+            className="absolute sm:bottom-1 sm:left-28 flex h-4 w-4 left-15  bottom-px items-center justify-center cursor-pointer"
+          >
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
           </div>
@@ -141,18 +151,18 @@ export const DiscordStatus = () => {
 
   // SCENARIO B: Other Status (Static Trigger)
   return (
-    <Tooltip>
+    <Tooltip open={isOpen} onOpenChange={setIsOpen}>
       <TooltipTrigger asChild>
-        <div className="bottom-4 left-16 flex items-center justify-center relative w-7 h-7 border border-neutral-500/40 dark:border-neutral-500 rounded-full ">
+        <div
+          onClick={handleMobileClick}
+          className="bottom-4 left-16 flex items-center justify-center relative w-7 h-7 border border-neutral-500/40 dark:border-neutral-500 rounded-full "
+        >
           <span
             className={`absolute w-4 h-4 rounded-full border-2 border-white ${statusColor} cursor-pointer`}
           ></span>
         </div>
       </TooltipTrigger>
-      <TooltipContent
-        side="right"
-        
-      >
+      <TooltipContent side="right">
         {activity ? (
           <CursorInfo />
         ) : (
