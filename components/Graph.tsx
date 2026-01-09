@@ -137,7 +137,7 @@ const GithubGraph = () => {
             <>
               <GitHubCalendar
                 username="Piyushrathoree"
-                colorScheme={theme === "dark" ? "light" : "light"}
+                colorScheme={theme === "dark" ? "dark" : "light"}
                 blockSize={isMobile ? 7 : 11}
                 blockMargin={isMobile ? 2 : 4}
                 fontSize={isMobile ? 10 : 12}

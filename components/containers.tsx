@@ -14,6 +14,8 @@ const Container = ({
         className
       )}
     >
+      {/* Right side decorative line */}
+      <div className="hidden lg:block fixed right-0 top-0 h-full w-px bg-neutral-200 dark:bg-neutral-800" />
       {children}
     </div>
   );
